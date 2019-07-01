@@ -6,10 +6,11 @@ public class News {
     private int id;
     private String title;
     private String link;
-    private int likeCount;
+    private String image;
+    private int likeCount;//赞踩数
     private int commentCount;
-    private int userId;
-    private Date createDate;
+    private int userId;//资讯发起者
+    private Date createdDate;
 
     public int getId() {
         return id;
@@ -59,13 +60,20 @@ public class News {
         this.userId = userId;
     }
 
-    public Date getCreateDate() {
-        return createDate;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
 }

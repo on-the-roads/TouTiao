@@ -1,6 +1,6 @@
 package com.nowcoder;
 
-import com.chenjiawen.ToutiaoApplication;
+import com.ToutiaoApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
