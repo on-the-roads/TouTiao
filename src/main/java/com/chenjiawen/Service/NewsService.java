@@ -12,7 +12,7 @@ public class NewsService {
     @Autowired
     private NewsDao newsDao;
 
-    List<News> getUserIdAndOffset(int userId,int offset,int limit){
+    public List<News> getUserIdAndOffset(int userId,int offset,int limit){
         List<News> newsList=newsDao.selectByUserIdAndOffset(userId,offset,limit);
         return newsList;
     }

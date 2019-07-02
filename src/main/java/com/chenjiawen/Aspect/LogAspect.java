@@ -14,11 +14,11 @@ public class LogAspect {
 
     @Before("execution(* com.chenjiawen.Controller.*Controller.*(..))")
     public void before(){
-        LOGGER.info("beforeMethod");
+        LOGGER.info("beforeMethod:Controller");
     }
 
     @After("execution(* com.chenjiawen.Controller.*Controller.*(..))")
     public void after(){
-        LOGGER.info("afterMethod");
+        LOGGER.info("afterMethod:Controller");
     }
 }

@@ -8,5 +8,6 @@
 2.2 Resources目录下添加mybatis-config.xml文件   
 2.3 修改application.properties配置文件：增加数据源配置信息以及添加mybatis配置文件地址    
 2.4 创建基本的Controller层，Service层，Dao层       
-2.5 aspect实现切面，并且使用logger来记录日志，用该切面的切面方法来监听controller。   
+2.5 aspect实现切面，并且使用logger来记录日志，用该切面的切面方法来监听controller。    
+3. 添加home页面以及个人展示页，编写对应的Controller方法     
        

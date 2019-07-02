@@ -35,7 +35,7 @@ public class DaoTests {
 			user.setName(String.format("User%d",i));
 			user.setPassword(String.valueOf(random.nextInt(1231)));
 			user.setSalt("");
-			user.setHead_url(String.format("http://images.nowcoder.com/head/%dt.png",random.nextInt(1000)));
+			user.setHeadUrl(String.format("http://images.nowcoder.com/head/%dt.png", random.nextInt(1000)));
 			userDao.addUser(user);
 			user.setPassword("passwo");
 			userDao.updatePassById(user);
@@ -44,6 +44,7 @@ public class DaoTests {
             News news=new News();
             news.setCommentCount(i*124);
             Date date=new Date();
+            date.setTime(date.getTime()+i*1000*3600*24);
             news.setCreatedDate(date);
             news.setId(i);
             news.setLikeCount(i);
