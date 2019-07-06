@@ -1,6 +1,5 @@
 package com.chenjiawen.Controller;
 
-import com.chenjiawen.Aspect.LogAspect;
 import com.chenjiawen.Model.News;
 import com.chenjiawen.Model.ViewObject;
 import com.chenjiawen.Service.NewsService;
@@ -13,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +29,10 @@ public class HomeController {
 
 
     @RequestMapping(path = {"/","/index"}, method = {RequestMethod.GET, RequestMethod.POST})
-    public String index(Model model) {
+    public String index(Model model, @RequestParam(value = "pop",defaultValue = "0")int pop) {
         List<ViewObject> objectList=getNews(0,0,10);
         model.addAttribute("vos",objectList);
+        model.addAttribute("pop",pop);
         LOGGER.info("登录home页面");
         return "home";
     }

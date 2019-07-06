@@ -42,3 +42,14 @@ create table message(
   create_id datetime not null,
   primary key(id)
   )engine=InnoDB default CHARSET=utf8;
+
+drop table if exists login_ticket;
+create table login_ticket(
+  id int(11) unsigned not null auto_increment,
+  user_id int(11) not null,
+  ticket varchar(256) not null,
+  expired datetime not null,
+  status int(11) not null,
+  primary key(id),
+  UNIQUE index ticket_Unique (`ticket` ASC)
+)engine=InnoDB default CHARSET=utf8;

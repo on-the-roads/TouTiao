@@ -1,10 +1,14 @@
 package com.nowcoder;
 
+import com.chenjiawen.Dao.LoginticketDao;
 import com.chenjiawen.Dao.NewsDao;
 import com.chenjiawen.Dao.UserDao;
+import com.chenjiawen.Model.LoginTicket;
 import com.chenjiawen.Model.News;
 import com.chenjiawen.Model.User;
 import com.ToutiaoApplication;
+import org.apache.commons.lang.StringUtils;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +30,9 @@ public class DaoTests {
 
 	@Autowired
 	private NewsDao newsDao;
+
+	@Autowired
+	private LoginticketDao loginticketDao;
 
 	@Test
 	public void initData() {
@@ -53,11 +60,23 @@ public class DaoTests {
             news.setImage(String.format("http://images.nowcoder.com/head/%dm.png",random.nextInt(1000)));
             news.setUserId(i+1);
             newsDao.addNews(news);
+
+
+            //=======================LoginTicketService=========================
+			LoginTicket loginTicket=new LoginTicket();
+			loginTicket.setExpired(date);
+			loginTicket.setStatus(0);
+			loginTicket.setTicket(String.format("TICKET%d",i+1));
+			loginTicket.setUserId(i+1);
+			loginticketDao.addTicket(loginTicket);
+			loginticketDao.updateStatus(1,loginTicket.getTicket());
 		}
         List<News> newsLIst=newsDao.selectByUserIdAndOffset(3,0,20);
 //		userDao.deleteById(1);
 //		Assert.assertNotNull(userDao.selectById(1));
 
+		loginticketDao.deleteById(1);
+		Assert.assertNull(loginticketDao.selectByTicket("TICKET1"));
 	}
 
 }
