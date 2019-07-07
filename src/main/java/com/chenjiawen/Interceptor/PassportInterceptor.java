@@ -29,16 +29,18 @@ public class PassportInterceptor implements HandlerInterceptor {
 
     private static final Logger LOGGER= LoggerFactory.getLogger(PassportInterceptor.class);
 
+    //true继续请求，false拒绝请求
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
+        LOGGER.debug("拦截器preHandle");
         String ticket=null;
         Cookie[] cookies=httpServletRequest.getCookies();
-        for(Cookie cookie:cookies)
-        {
-            if (cookie.getName().equals("ticket"))
-            {
-                ticket=cookie.getValue();
-                break;
+        if(cookies!=null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("ticket")) {
+                    ticket = cookie.getValue();
+                    break;
+                }
             }
         }
         if(ticket!=null)
@@ -48,21 +50,26 @@ public class PassportInterceptor implements HandlerInterceptor {
                 return true;
             User user= userDao.selectById(loginTicket.getUserId());
             hostHolder.setUser(user);//保存用户信息
-            LOGGER.info("用户登录验证成功，用户信息{}", user);
+//            LOGGER.info("用户登录验证成功，用户信息{}", user);
             return true;
         }
-        return false;
+        return true;
     }
 
+    //渲染之前提供的后处理方法，可以添加模型数据，自动传给前端。
     @Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
-        if(modelAndView!=null&&hostHolder.getUser()!=null)
+        LOGGER.debug("拦截器postHandle");
+        if(modelAndView!=null&&hostHolder.getUser()!=null) {
             modelAndView.addObject("user",hostHolder.getUser());
+       //     hostHolder.clearUser();
+        }
 
     }
 
     @Override
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
+         LOGGER.debug("拦截器afterCompletion");
 
     }
 }

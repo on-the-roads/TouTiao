@@ -31,10 +31,23 @@
 > 1）校验cookies中的ticket是否存在   
 > 2）检查ticket是否过期   
 > 3）根据LoginTicket的userID查询用户  
-> 4）编写一个HostHolder类，用ThreadLocal来保存当前线程下的User信息   
+> 4）编写一个HostHolder类，用ThreadLocal来保存当前线程下的User信息，注意在postHandle中删除user信息  
 
 7 添加注销功能   
 >主要通过改变用户对应的ticket的status来实现，当status值非0时用户登录状态失效   
+
+8 添加文件上传功能和文件查看功能
+>8.1 尝试使用dev-tools工具，能够实现动态编译，编译有改动的文件即可，不需要重新启动SpringBoot   
+>8.2 添加图片类型文件上传功能（POST请求）   
+>1)获取文件名称  
+>2)根据文件后缀名判断是否为图片   
+>3)保存到本地服务器或者云存储   
+>4)返回图片对应的http请求url地址    
+>8.3 添加图片查看功能（GET请求）  
+>1)获取图片字节流   
+>2)利用response的getOutputStream输出   
+>8.4 上传图片保存在本地功能测试成功后，尝试将图片上传至云存储  
+>云储存的优点：冗余备份，统一访问，CDN缓存同步，多机器并发，实时缩图（通过在图片的请求url后面配置尺寸规格）等   
 
  
        

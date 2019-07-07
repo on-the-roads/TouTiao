@@ -33,7 +33,7 @@ public class HomeController {
         List<ViewObject> objectList=getNews(0,0,10);
         model.addAttribute("vos",objectList);
         model.addAttribute("pop",pop);
-        LOGGER.info("登录home页面");
+        LOGGER.info("展示home页面");
         return "home";
     }
 
@@ -41,7 +41,7 @@ public class HomeController {
     public String UserIndex(Model model,@PathVariable("id")int userId) {
         List<ViewObject> objectList=getNews(userId,0,10);
         model.addAttribute("vos",objectList);
-        LOGGER.info("登录指定用户ID{}页面",userId);
+        LOGGER.info("展示指定用户ID{}页面",userId);
         return "home";
     }
 

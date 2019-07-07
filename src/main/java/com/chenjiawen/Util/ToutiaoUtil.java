@@ -57,4 +57,15 @@ public class ToutiaoUtil {
         }
     }
 
+    private final static String[] IMAGE_FILE_EXTD ={"png","jpg","jpeg","bmp"};
+    public final static String IMAGE_DIR="G:/works/pictemp/";
+    public final static String TOUTIAO_DOMAIN="http://localhost:8080/";
+    public static boolean FileAllowed(String ext) {
+        for(String str: IMAGE_FILE_EXTD)
+        {
+            if(str.equals(ext))
+                return true;
+        }
+        return false;
+    }
 }

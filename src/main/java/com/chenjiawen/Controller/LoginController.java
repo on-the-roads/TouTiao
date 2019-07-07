@@ -48,7 +48,7 @@ public class LoginController {
                         @RequestParam(value = "rember", defaultValue = "0") int remmberMe, HttpServletResponse response) {
         Map<String, Object> loginMap = null;
         try {
-            LOGGER.info("用户尝试登录,username{},password{}",username,password);
+            LOGGER.info("用户尝试登录,username:{},password:{}",username,password);
             loginMap = userService.login(username, password);
             if (loginMap.containsKey("ticket")) {
                 Cookie cookie = new Cookie("ticket", loginMap.get("ticket").toString());
