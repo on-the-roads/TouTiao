@@ -11,14 +11,14 @@ import java.util.List;
 public interface NewsDao {
     String TABLE_NAME = "news";
     String INSERT_FIELD = " title, link, image, like_count, comment_count, created_date, user_id ";
-    String SELECT_FIELD = "  id,title,link,image,like_count,comment_count,created_data,user_id ";
+    String SELECT_FIELD = " id,"+INSERT_FIELD;
 
     @Insert({"insert into ", TABLE_NAME, "(", INSERT_FIELD,
             ") values (#{title},#{link},#{image},#{likeCount},#{commentCount},#{createdDate},#{userId})"})
     int addNews(News news);
 
-    @Select({"select ", SELECT_FIELD, " from ", TABLE_NAME, " where id=#{id}"})
-    News selectById(int id);
+    @Select({"select ",SELECT_FIELD," from ",TABLE_NAME," where user_id=#{userId}"})
+    News selectByUserId(int userId);
 
     @Delete({"delete from ", TABLE_NAME, "where id=#{id}"})
     void deleteById(int id);

@@ -76,4 +76,17 @@ public class News {
         this.image = image;
     }
 
+    @Override
+    public String toString() {
+        return "News{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", link='" + link + '\'' +
+                ", image='" + image + '\'' +
+                ", likeCount=" + likeCount +
+                ", commentCount=" + commentCount +
+                ", userId=" + userId +
+                ", createdDate=" + createdDate +
+                '}';
+    }
 }

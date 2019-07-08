@@ -24,6 +24,15 @@ public class NewsService {
         return newsList;
     }
 
+    public News getNewsById(int userId)
+    {
+        return newsDao.selectByUserId(userId);
+    }
+    public int addNews(News news)
+    {
+        return newsDao.addNews(news);
+    }
+
     public String saveImage(MultipartFile file) throws IOException {
         //获取文件名称
         String fileName=file.getOriginalFilename();

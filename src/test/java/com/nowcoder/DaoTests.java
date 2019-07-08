@@ -7,8 +7,6 @@ import com.chenjiawen.Model.LoginTicket;
 import com.chenjiawen.Model.News;
 import com.chenjiawen.Model.User;
 import com.ToutiaoApplication;
-import org.apache.commons.lang.StringUtils;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,6 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -71,12 +68,14 @@ public class DaoTests {
 			loginticketDao.addTicket(loginTicket);
 			loginticketDao.updateStatus(1,loginTicket.getTicket());
 		}
-        List<News> newsLIst=newsDao.selectByUserIdAndOffset(3,0,20);
+//        List<News> newsLIst=newsDao.selectByUserIdAndOffset(3,0,20);
 //		userDao.deleteById(1);
-//		Assert.assertNotNull(userDao.selectById(1));
+//		Assert.assertNotNull(userDao.selectByUserId(1));
 
-		loginticketDao.deleteById(1);
-		Assert.assertNull(loginticketDao.selectByTicket("TICKET1"));
+//		loginticketDao.deleteById(1);
+//		Assert.assertNull(loginticketDao.selectByTicket("TICKET1"));
+		News news=newsDao.selectByUserId(2);
+		System.out.println(news);
 	}
 
 }

@@ -25,11 +25,14 @@ CREATE TABLE `news` (
 drop table if exists comment;
 create table comment(
   id int(11) unsigned not null auto_increment,
-  content varchar(256) not null default '',
   user_id int(11) not null,
   create_date datetime not null,
-  news_id int(11) not null,
-  primary key(id)
+  entity_id int(11) not null,
+  entity_type int(11) not null,
+  status int not null default 0,
+  content text not null,
+  primary key(id),
+  index `entity_index` (`entity_id` ASC,`entity_type` ASC)
 )engine=InnoDB default CHARSET=utf8;
 
 drop table if exists message;

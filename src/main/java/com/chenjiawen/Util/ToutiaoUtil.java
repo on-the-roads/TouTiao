@@ -9,6 +9,7 @@ import java.util.Map;
 
 public class ToutiaoUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(ToutiaoUtil.class);
+    public final static int ANONYMOUS_USERS =0;
 
     public static String getJsonString(int code, String message) {
         JSONObject jsonObject = new JSONObject();

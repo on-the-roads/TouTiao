@@ -31,7 +31,7 @@ public class QiniuService {
     String bucket = "toutiao";
     //如果是Windows情况下，格式是 D:\\qiniu\\test.png
 //    String localFilePath = "/home/qiniu/test.png";
-    private static String QINIU_IMAGE_DOMAIN = "http://7xsetu.com1.z0.glb.clouddn.com/";//这个等七牛云权限申请下来要改
+    private static String QINIU_IMAGE_DOMAIN = "http://pub0o1noh.bkt.clouddn.com/";//这个等七牛云权限申请下来要改
 
     //默认不指定key的情况下，以文件内容的hash值作为文件名
 //    String key = null;
@@ -59,6 +59,7 @@ public class QiniuService {
             Response response = null;
             try {
                 response = uploadManager.put(file.getBytes(), fileName, getUpToken());
+                System.out.println(response.bodyString());
                 //返回fileUrl
                 if (response.isOK() && response.isJson())
                     return QiniuService.QINIU_IMAGE_DOMAIN + JSONObject.parseObject(response.bodyString()).get("key");//http请求的url形式
