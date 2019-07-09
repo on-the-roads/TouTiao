@@ -1,11 +1,10 @@
 package com.nowcoder;
 
+import com.chenjiawen.Dao.CommentDao;
 import com.chenjiawen.Dao.LoginticketDao;
 import com.chenjiawen.Dao.NewsDao;
 import com.chenjiawen.Dao.UserDao;
-import com.chenjiawen.Model.LoginTicket;
-import com.chenjiawen.Model.News;
-import com.chenjiawen.Model.User;
+import com.chenjiawen.Model.*;
 import com.ToutiaoApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,6 +14,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -30,6 +30,8 @@ public class DaoTests {
 
 	@Autowired
 	private LoginticketDao loginticketDao;
+	@Autowired
+	private CommentDao commentDao;
 
 	@Test
 	public void initData() {
@@ -58,6 +60,17 @@ public class DaoTests {
             news.setUserId(i+1);
             newsDao.addNews(news);
 
+            //给每个资讯插几条评论Comment
+			for (int j = 0; j < 3; j++) {
+				Comment comment=new Comment();
+				comment.setContent("我是一条评论"+i);
+				comment.setCreateDate(new Date());
+				comment.setEntityId(news.getId());
+				comment.setEntityType(EntityType.ENTITY_NEWS);
+				comment.setUserId(i+1);
+				comment.setStatus(0);
+				commentDao.addComment(comment);
+			}
 
             //=======================LoginTicketService=========================
 			LoginTicket loginTicket=new LoginTicket();
@@ -74,8 +87,14 @@ public class DaoTests {
 
 //		loginticketDao.deleteById(1);
 //		Assert.assertNull(loginticketDao.selectByTicket("TICKET1"));
+
+
 		News news=newsDao.selectByUserId(2);
 		System.out.println(news);
+		List<Comment> commentList=commentDao.selectByEntity(1,1);
+		for(Comment comment:commentList)
+			System.out.println(comment);
+		System.out.println(commentDao.getCommentCount(1,1));
 	}
 
 }

@@ -2,7 +2,6 @@ package com.chenjiawen.Dao;
 
 
 import com.chenjiawen.Model.News;
-import com.chenjiawen.Model.User;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

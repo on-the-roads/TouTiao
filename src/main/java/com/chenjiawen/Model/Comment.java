@@ -3,6 +3,7 @@ package com.chenjiawen.Model;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+
 @Component
 public class Comment {
     private int id;
@@ -67,5 +68,18 @@ public class Comment {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", createDate=" + createDate +
+                ", entityId=" + entityId +
+                ", entityType=" + entityType +
+                ", status=" + status +
+                ", content='" + content + '\'' +
+                '}';
     }
 }
