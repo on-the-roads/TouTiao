@@ -89,12 +89,14 @@ public class DaoTests {
 //		Assert.assertNull(loginticketDao.selectByTicket("TICKET1"));
 
 
-		News news=newsDao.selectByUserId(2);
-		System.out.println(news);
-		List<Comment> commentList=commentDao.selectByEntity(1,1);
-		for(Comment comment:commentList)
-			System.out.println(comment);
-		System.out.println(commentDao.getCommentCount(1,1));
+//		News news=newsDao.selectByUserId(2);
+//		System.out.println(news);
+//		List<Comment> commentList=commentDao.selectByEntity(1,1);
+//		for(Comment comment:commentList)
+//			System.out.println(comment);
+		System.out.println(commentDao.getCommentCount(2,EntityType.ENTITY_NEWS));
+
+		newsDao.updateComentCount(2,100);
 	}
 
 }

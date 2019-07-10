@@ -17,12 +17,13 @@ public class CommentService {
         return commentDao.addComment(comment);
     }
 
-    public List<Comment> selectByEntity(int entityId,int entityType)
+    public List<Comment> getCommentList(int entityId,int entityType)
     {
         return  commentDao.selectByEntity(entityId,entityType);
     }
     public int getCommentCount(int entityId,int entityType){
         return commentDao.getCommentCount(entityId,entityType);
     }
+
 
 }

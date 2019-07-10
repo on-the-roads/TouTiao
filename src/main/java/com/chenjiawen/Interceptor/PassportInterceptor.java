@@ -49,7 +49,7 @@ public class PassportInterceptor implements HandlerInterceptor {
             if(loginTicket==null||loginTicket.getExpired().before(new Date())||loginTicket.getStatus()!=0)//ticket的status用于判断ticket是否有效
                 return true;
             User user= userDao.selectById(loginTicket.getUserId());
-            hostHolder.setUser(user);//保存用户信息
+            hostHolder.setUser(user);//当用户ticket有效时保存用户信息
 //            LOGGER.info("用户登录验证成功，用户信息{}", user);
             return true;
         }
@@ -62,7 +62,7 @@ public class PassportInterceptor implements HandlerInterceptor {
         LOGGER.debug("拦截器postHandle");
         if(modelAndView!=null&&hostHolder.getUser()!=null) {
             modelAndView.addObject("user",hostHolder.getUser());
-       //     hostHolder.clearUser();
+            hostHolder.clearUser();
         }
 
     }

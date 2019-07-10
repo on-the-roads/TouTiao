@@ -1,7 +1,7 @@
 package com.chenjiawen.Controller;
 
-import com.chenjiawen.Model.HostHolder;
-import com.chenjiawen.Model.News;
+import com.chenjiawen.Model.*;
+import com.chenjiawen.Service.CommentService;
 import com.chenjiawen.Service.NewsService;
 import com.chenjiawen.Service.QiniuService;
 import com.chenjiawen.Service.UserService;
@@ -19,7 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class NewsController {
@@ -31,6 +33,8 @@ public class NewsController {
     UserService userService;
     @Autowired
     HostHolder hostHolder;
+    @Autowired
+    CommentService commentService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NewsController.class);
 
@@ -53,14 +57,28 @@ public class NewsController {
     }
 
     //展示资讯详情
-    @RequestMapping(path = {"/news/{userId}"}, method = {RequestMethod.POST,RequestMethod.GET})
-    public String newsDetail(Model model, @PathVariable(value ="userId")int userId){
+    @RequestMapping(path = {"/news/{newsId}"}, method = {RequestMethod.POST,RequestMethod.GET})
+    public String newsDetail(Model model, @PathVariable(value ="newsId")int newsId){
 
        try{
-           News  news=newsService.getNewsById(userId);
-           //对资讯做处理
+           News  news=newsService.getNewsById(newsId);
+           //对资讯做处理,add comments
+           if(news!=null)
+           {
+               List<Comment> comments=commentService.getCommentList(newsId,EntityType.ENTITY_NEWS);
+               List<ViewObject> commentVos=new ArrayList<>();
+               for(Comment comment:comments)
+               {
+                   ViewObject commentVo=new ViewObject();
+                   commentVo.set("user",userService.getUserBYid(comment.getUserId()));
+                   commentVo.set("comment",comment);
+                   commentVos.add(commentVo);
+               }
+
+               model.addAttribute("comments",commentVos);
+           }
            model.addAttribute("news",news);
-           model.addAttribute("owner",userService.getUserBYid(userId));
+           model.addAttribute("owner",userService.getUserBYid(newsId));
 
        }catch (Exception e)
        {
@@ -93,7 +111,29 @@ public class NewsController {
             LOGGER.error("插入资讯失败："+e.getMessage());
             return ToutiaoUtil.getJsonString(1,"插入资讯失败");
         }
+    }
 
+    //添加资讯下对应的评论
+    @RequestMapping(path = {"/addComment"}, method = {RequestMethod.POST,RequestMethod.GET})
+    public String addComment(@RequestParam("newsId")int newsId,@RequestParam ("content")String content){
+        try {
+            Comment comment = new Comment();
+            comment.setStatus(0);
+            comment.setUserId(hostHolder.getUser().getId());
+            comment.setEntityType(EntityType.ENTITY_NEWS);
+            comment.setEntityId(newsId);
+            comment.setContent(content);
+            comment.setCreateDate(new Date());
+            commentService.addComment(comment);
+
+            //更新评论数量
+            int commmentCount=commentService.getCommentCount(comment.getEntityId(),comment.getEntityType());
+            newsService.updateComentCount(comment.getEntityId(),commmentCount);
+            //如何异步化
+        }catch(Exception e){
+            LOGGER.error("添加评论错误"+e.getMessage());
+        }
+        return "redirect:/news/"+String.valueOf(newsId);
     }
 
     //查看图片

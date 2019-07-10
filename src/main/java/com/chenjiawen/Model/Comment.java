@@ -7,12 +7,12 @@ import java.util.Date;
 @Component
 public class Comment {
     private int id;
-    private int userId;
+    private int userId;//评论者Id
     private Date createDate;
-    private int entityId;
-    private int entityType;
-    private int status;
-    private String content;
+    private int entityId;//实体Id
+    private int entityType;//实体类型
+    private int status;//0，启用；1，禁用
+    private String content;//评论内容
 
     public int getId() {
         return id;
