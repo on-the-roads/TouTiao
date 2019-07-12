@@ -1,9 +1,6 @@
 package com.nowcoder;
 
-import com.chenjiawen.Dao.CommentDao;
-import com.chenjiawen.Dao.LoginticketDao;
-import com.chenjiawen.Dao.NewsDao;
-import com.chenjiawen.Dao.UserDao;
+import com.chenjiawen.Dao.*;
 import com.chenjiawen.Model.*;
 import com.ToutiaoApplication;
 import org.junit.Test;
@@ -33,17 +30,20 @@ public class DaoTests {
 	@Autowired
 	private CommentDao commentDao;
 
+	@Autowired
+	private MessageDao messageDao;
+
 	@Test
 	public void initData() {
 		Random random=new Random();
 		for (int i = 0; i < 10; i++) {
 			User user=new User();
-			user.setName(String.format("User%d",i));
+			user.setName(String.format("cjw%d",i));
 			user.setPassword(String.valueOf(random.nextInt(1231)));
 			user.setSalt("");
 			user.setHeadUrl(String.format("http://images.nowcoder.com/head/%dt.png", random.nextInt(1000)));
 			userDao.addUser(user);
-			user.setPassword("passwo");
+			user.setPassword("psw");
 			userDao.updatePassById(user);
 
 			//=====================newsDao=======================
@@ -80,7 +80,18 @@ public class DaoTests {
 			loginTicket.setUserId(i+1);
 			loginticketDao.addTicket(loginTicket);
 			loginticketDao.updateStatus(1,loginTicket.getTicket());
+
+			//=======================MessageDao=========================
+			Message message=new Message();
+			message.setContent("我是一条信息");
+			message.setConversationId("1_2");
+			message.setCreatedDate(new Date());
+			message.setFromId(1);
+			message.setToId(2);
+			message.setHasRead(0);
+			messageDao.addMessage(message);
 		}
+//		List<Message> messages=messageDao.getConversationList(1,0,10);
 //        List<News> newsLIst=newsDao.selectByUserIdAndOffset(3,0,20);
 //		userDao.deleteById(1);
 //		Assert.assertNotNull(userDao.selectByUserId(1));
