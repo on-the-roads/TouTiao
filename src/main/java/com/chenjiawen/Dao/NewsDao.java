@@ -31,6 +31,10 @@ public interface NewsDao {
     @Update({"update ",TABLE_NAME ,"set comment_count=#{commmentCount} where id=#{id} "})
     int  updateComentCount(@Param("id") int id, @Param("commmentCount") int commmentCount);
 
+   @Update({"update ",TABLE_NAME ,"set like_count=#{likeCount} where id=#{id} "})
+    int  updateLikeCount(@Param("id") int id, @Param("likeCount") int likeCount);
+
+
     //使用配置文件
     List<News> selectByUserIdAndOffset(@Param("userId") int userId, @Param("offset") int offset, @Param("limit") int limit);
 }

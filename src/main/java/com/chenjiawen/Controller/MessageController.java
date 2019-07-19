@@ -70,7 +70,7 @@ public class MessageController {
             for (Message msg : conversationList) {
                 ViewObject vo = new ViewObject();
                 vo.set("conversation", msg);
-                int targetId = msg.getFromId() == localUserId ? msg.getToId() : msg.getFromId();
+                int targetId = msg.getFromId() == localUserId ? msg.getToId() : msg.getFromId();//获取对方Id
                 User user = userService.getUserBYid(targetId);
                 vo.set("headUrl", user.getHeadUrl());
                 vo.set("userName", user.getName());
