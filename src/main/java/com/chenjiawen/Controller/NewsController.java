@@ -1,10 +1,7 @@
 package com.chenjiawen.Controller;
 
 import com.chenjiawen.Model.*;
-import com.chenjiawen.Service.CommentService;
-import com.chenjiawen.Service.NewsService;
-import com.chenjiawen.Service.QiniuService;
-import com.chenjiawen.Service.UserService;
+import com.chenjiawen.Service.*;
 import com.chenjiawen.Util.ToutiaoUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +32,8 @@ public class NewsController {
     HostHolder hostHolder;
     @Autowired
     CommentService commentService;
+    @Autowired
+    LikeService likeService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NewsController.class);
 
@@ -62,6 +61,10 @@ public class NewsController {
 
        try{
            News  news=newsService.getNewsById(newsId);
+           User localUser=hostHolder.getUser();
+           int likeCount=0;
+           if(localUser!=null)
+               likeCount=likeService.getLikeStatus(localUser.getId(),EntityType.ENTITY_NEWS,newsId);
            //对资讯做处理,add comments
            if(news!=null)
            {
@@ -77,6 +80,7 @@ public class NewsController {
 
                model.addAttribute("comments",commentVos);
            }
+           model.addAttribute("like",likeCount);
            model.addAttribute("news",news);
            model.addAttribute("owner",userService.getUserBYid(newsId));
 

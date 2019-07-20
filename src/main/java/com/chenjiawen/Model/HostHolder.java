@@ -4,9 +4,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class HostHolder {
-    private static ThreadLocal<User> userThreadLocal=new ThreadLocal<>();
+    private static ThreadLocal<User> userThreadLocal=new ThreadLocal<>();//单例模式
     private User user;
 
+    private HostHolder(){}
     public User getUser() {
         return userThreadLocal.get();
     }

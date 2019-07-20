@@ -59,8 +59,8 @@
 11 添加消息中心功能     
 12 利用Redis实现消息资讯赞踩功能   
 >12.1 利用Jedis获取Redis线程池，编写JedisAdapter,主要用于操作集合    
->12.2 编写RedisKeyUtil，主要用作生成固定格式的字符串用作集合的Key   
->12.3 编写LikeController，实现具体用户下对展示的资讯的赞踩功能   
+>12.2 编写RedisKeyUtil，主要用作生成固定格式的字符串【LIKE + SPLIT + entityType + SPLIT + entityId】用作集合的Key   
+>12.3 编写LikeController，在主页和资讯详情页实现具体用户下对资讯的赞踩功能，测试时注意要先运行Redis服务器         
 
  
        
