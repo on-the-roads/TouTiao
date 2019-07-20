@@ -18,6 +18,10 @@ public class RedisKeyUtil {
         return DISLIKE + SPLIT + String.valueOf(entityType) + SPLIT + String.valueOf(entityId);
     }
 
+    /**
+     * 事件队列名称
+     * @return
+     */
     public static String getEventQueue() {
         return BIZEVENT;
     }

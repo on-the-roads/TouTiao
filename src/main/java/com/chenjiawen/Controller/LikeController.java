@@ -2,9 +2,13 @@ package com.chenjiawen.Controller;
 
 import com.chenjiawen.Model.EntityType;
 import com.chenjiawen.Model.HostHolder;
+import com.chenjiawen.Model.News;
 import com.chenjiawen.Service.LikeService;
 import com.chenjiawen.Service.NewsService;
 import com.chenjiawen.Util.ToutiaoUtil;
+import com.chenjiawen.async.EventModel;
+import com.chenjiawen.async.EventProducer;
+import com.chenjiawen.async.EventType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +29,8 @@ public class LikeController {
     NewsService newsService;
     @Autowired
     LikeService likeService;
+    @Autowired
+    EventProducer eventProducer;
     private static final Logger LOGGER= LoggerFactory.getLogger(LikeController.class);
 
     @RequestMapping(path = "/like")
@@ -34,6 +40,12 @@ public class LikeController {
             int userId = hostHolder.getUser().getId();
             long likeCount = likeService.like(userId, EntityType.ENTITY_NEWS, newsId);
             newsService.updateLikeCount(newsId,(int)likeCount);
+            News news=newsService.getNewsById(newsId);
+            eventProducer.MakeEvent(new EventModel(EventType.LIKE)
+                    .setActorId(userId)
+                    .setEntityId(newsId)
+                    .setEntityType(EntityType.ENTITY_NEWS)
+                    .setTargetId(news.getId()));
             return ToutiaoUtil.getJsonString(0, "喜欢个数: "+String.valueOf(likeCount));
         } catch (Exception e) {
             LOGGER.error("添加喜欢失败，newsId={] "+e.getMessage(),newsId);
