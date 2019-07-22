@@ -19,7 +19,7 @@ import java.util.Map;
 
 /**
  * 事件消费者
- * Created by jiawen.chen on 2019/7/20.
+ * Created by  jiawen.chen on 2019/7/20.
  */
 @Service
 public class EventConsumer implements InitializingBean, ApplicationContextAware {
