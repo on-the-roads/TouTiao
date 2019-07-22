@@ -151,7 +151,7 @@ public class JedisAdapter implements InitializingBean {
         Jedis jedis = null;
         try{
             jedis=getResource();
-            return jedis.brpop(0,key);
+            return jedis.brpop(0,key);//若队列中没有元素，则一直阻塞
         }catch (Exception e)
         {
             LOGGER.error("从队列{}取出元素失败"+e.getMessage(),key);

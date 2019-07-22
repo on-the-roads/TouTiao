@@ -20,13 +20,13 @@ public class EventProducer {
     JedisAdapter jedisAdapter;
 
     /**
-     * Redis列表用过消息队列，将事件序列化后存放在Redis列表中
+     * Redis列表用作消息队列，将事件序列化后存放在Redis列表中
      * @param eventModel
      * @return
      */
     public boolean MakeEvent(EventModel eventModel) {
         try {
-            //序列化为JSON格式
+            //序列化为JSON格式,添加到Redis的列表中
             String jsonObject = JSON.toJSONString(eventModel);
             jedisAdapter.lpush(RedisKeyUtil.getEventQueue(), jsonObject);
             return true;

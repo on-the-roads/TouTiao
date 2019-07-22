@@ -38,7 +38,9 @@ public class EventConsumer implements InitializingBean, ApplicationContextAware 
      * @throws Exception
      */
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
+
+        LOGGER.info("初始化完成后用线程一直监听队列等待处理事件");
         //利用上下文获取所有实现EventHandler的实现类
         Map<String, EventHandler> beans = applicationContext.getBeansOfType(EventHandler.class);
         if (beans != null) {
@@ -53,8 +55,6 @@ public class EventConsumer implements InitializingBean, ApplicationContextAware 
                 }
             }
         }
-
-
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -80,7 +80,38 @@ public class EventConsumer implements InitializingBean, ApplicationContextAware 
             }
         });
         thread.start();
+
+//        Monitor();
     }
+
+//    private void Monitor() {
+//        Thread thread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                while (true) {
+//                    String eventQueueName = RedisKeyUtil.getEventQueue();
+//                    List<String> eventJsons = jedisAdapter.brpop(eventQueueName);
+//                    for (String eventJson : eventJsons) {
+//                        //队列阻塞弹出先弹出队列名，所以要做下过滤
+//                        if (eventJson.equals(eventQueueName))
+//                            continue;
+//                        EventModel eventModel = JSONObject.parseObject(eventJson, EventModel.class);
+//                        if (!config.containsKey(eventModel.getEventType())) {
+//                            LOGGER.error("不能识别的事件类型{}", eventJson);
+//                            continue;
+//                        }
+//                        //由前面的map获得一个具体事件的各种处理Handler
+//                        List<EventHandler> eventHandlers = config.get(eventModel.getEventType());
+//                        for (EventHandler eventHandler : eventHandlers) {
+//                            eventHandler.doHandler(eventModel);
+//                        }
+//                    }
+//                }
+//            }
+//        });
+//        thread.start();
+//    }
+
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
