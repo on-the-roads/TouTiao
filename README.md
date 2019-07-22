@@ -69,7 +69,9 @@
 >* 定义事件生产者eventProducer，Redis的列表作为消息队列，生产者将事件的JSON格式字符串添加到列表中   
 >* 定义事件消费者eventConsumer，利用**线程一直**监听队列中有无待处理事件，并利用事件相对应的处理Handler进行处理   
 >13.1 点赞通知异步实现： 1） 产生点赞事件：在LikeController中使用eventProducer产生并发送点赞事件 2）点赞事件处理：eventConsumer利用事件类型对应的处理Handler找到LikeHandler处理 3）EventHandler的实现类LikeHandler用于处理点赞事件，处理过程主要为发送站内信通知被点赞者。      
->13.2 登录异常通知异步实现： 1） 产生登录异常事件：在LoginController中使用eventProducer产生并发送登录异常事件 2）登录异常事件处理：eventConsumer利用事件类型对应的处理Handler找到LoginHandler处理 3）EventHandler的实现类LoginHandler用于处理登录异常事件，处理过程主要为发送站内信通知登录者。      
+>13.2 登录异常通知异步实现： 1） 产生登录异常事件：在LoginController中使用eventProducer产生并发送登录异常事件 2）登录异常事件处理：eventConsumer利用事件类型对应的处理Handler找到LoginHandler处理 3）EventHandler的实现类LoginHandler用于处理登录异常事件，处理过程主要为发送站内信通知登录者。    
+>13.3 添加邮件发送功能，主要依赖于外部jar包，设置邮箱SMTP相关参数，通过Velocity引擎渲染邮件内容模板。      
+>  
      
 
  
