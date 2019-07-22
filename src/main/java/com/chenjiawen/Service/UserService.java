@@ -69,6 +69,7 @@ public class UserService {
             return loginMap;
         }
         String ticket=addLoginticket(user.getId());
+        loginMap.put("userId",user.getId());
         loginMap.put("ticket",ticket);
         return loginMap;
 

@@ -1,7 +1,11 @@
 package com.chenjiawen.Controller;
 
+import com.chenjiawen.Model.EntityType;
 import com.chenjiawen.Service.UserService;
 import com.chenjiawen.Util.ToutiaoUtil;
+import com.chenjiawen.async.EventModel;
+import com.chenjiawen.async.EventProducer;
+import com.chenjiawen.async.EventType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +23,8 @@ import java.util.Map;
 public class LoginController {
     @Autowired
     UserService userService;
+    @Autowired
+    EventProducer eventProducer;
 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
@@ -56,6 +62,14 @@ public class LoginController {
                 if (remmberMe > 0)
                     cookie.setMaxAge(3600 * 24 * 5);//单位：s,  记录登陆状态，则将cookie有效期设为更长
                 response.addCookie(cookie);
+
+                int userId= (int) loginMap.get("userId");
+                eventProducer.MakeEvent(new EventModel(EventType.LOGIN)
+                        .set("userName",username)
+                        .set("email","123456789@qq.com")
+                        .setActorId(userId)
+                        .setTargetId(userId)
+                        .setEntityId(EntityType.ENTITY_NEWS));
                 return ToutiaoUtil.getJsonString(0, "登陆成功！");
             }
             return ToutiaoUtil.getJsonString(1, loginMap);
