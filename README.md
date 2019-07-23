@@ -1,15 +1,15 @@
 ## 头条
-仿照今日头条的主页toutiao.com做的一个Java web项目。使用SpringBoot+Mybatis+velocity开发。       
-
+仿照今日头条的主页toutiao.com做的一个Java web项目。使用SpringBoot+Mybatis+velocity+Redis开发。     
+主要功能包括： 模板语法和渲染，数据库交互iBatis集成，用户注册登录管理 资讯发布，图片上传，资讯首页，评论中心，站内信 Redis实现赞踩功能，异步设计和站内邮件通知系统，JavaWeb项目测试和部署。   
 ## 功能实现        
 1 SpringBoot初始化配置             
 2 搭建基本框架
 >      
-2.1 写sql语句创建表，创建对应的model     
-2.2 Resources目录下添加mybatis-config.xml文件   
-2.3 修改application.properties配置文件：增加数据源配置信息以及添加mybatis配置文件地址    
-2.4 创建基本的Controller层，Service层，Dao层       
-2.5 aspect实现切面，并且使用logger来记录日志，用该切面的切面方法来监听controller。
+> 2.1 写sql语句创建表，创建对应的model     
+> 2.2 Resources目录下添加mybatis-config.xml文件   
+> 2.3 修改application.properties配置文件：增加数据源配置信息以及添加mybatis配置文件地址    
+> 2.4 创建基本的Controller层，Service层，Dao层       
+> 2.5 aspect实现切面，并且使用logger来记录日志，用该切面的切面方法来监听controller。
     
 3 添加home页面以及个人展示页，编写对应的Controller方法  
 4  添加注册功能   
@@ -83,8 +83,8 @@
 >  1. 服务器安装   
 apt-get install nginx mysql-server libmysqlclient-dev maven redis      
 >  2. 启动WEB：tomcat目录增加执行权限。 chmod +x startup.sh  
-3. 配置Java：update-alternatives –config java   
-4. Redis链接修改
+> 3. 配置Java：update-alternatives –config java   
+> 4. Redis链接修改
   
      
 
