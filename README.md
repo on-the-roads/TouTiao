@@ -75,9 +75,9 @@
 14 打包以及部署
 > **打包**   
 > 1. application 继承 SpringBootServletInitializer  
-2. pom.xml 打包改为war   
-3. mvn package -Dmaven.test.skip=true   
-4. 去除多余的main函数 
+>2. pom.xml 打包改为war   
+>3. mvn package -Dmaven.test.skip=true   
+>4. 去除多余的main函数 
     
 >  **部署**     
 >  1. 服务器安装   
