@@ -71,7 +71,21 @@
 >13.1 点赞通知异步实现： 1） 产生点赞事件：在LikeController中使用eventProducer产生并发送点赞事件 2）点赞事件处理：eventConsumer利用事件类型对应的处理Handler找到LikeHandler处理 3）EventHandler的实现类LikeHandler用于处理点赞事件，处理过程主要为发送站内信通知被点赞者。      
 >13.2 登录异常通知异步实现： 1） 产生登录异常事件：在LoginController中使用eventProducer产生并发送登录异常事件 2）登录异常事件处理：eventConsumer利用事件类型对应的处理Handler找到LoginHandler处理 3）EventHandler的实现类LoginHandler用于处理登录异常事件，处理过程主要为发送站内信通知登录者。    
 >13.3 添加邮件发送功能，主要依赖于外部jar包，设置邮箱SMTP相关参数，通过Velocity引擎渲染邮件内容模板。      
->  
+
+14 打包以及部署
+> **打包**   
+> 1. application 继承 SpringBootServletInitializer  
+2. pom.xml 打包改为war   
+3. mvn package -Dmaven.test.skip=true   
+4. 去除多余的main函数 
+    
+>  **部署**     
+>  1. 服务器安装   
+apt-get install nginx mysql-server libmysqlclient-dev maven redis      
+>  2. 启动WEB：tomcat目录增加执行权限。 chmod +x startup.sh  
+3. 配置Java：update-alternatives –config java   
+4. Redis链接修改
+  
      
 
  
